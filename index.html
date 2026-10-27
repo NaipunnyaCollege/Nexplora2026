@@ -59,7 +59,7 @@ form.addEventListener("submit", async function(event) {
   statusBox.className = "status";
   statusBox.textContent = "";
   if (document.getElementById("website").value) return;
-  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT")) {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("https://script.google.com/a/macros/naipunnyacollege.ac.in/s/AKfycby5vnP8rdXYcmVABb6Fdkl7lXhnxHRei7HiR_JBEpkBadRsPfe464bcS8h8XkV61l-D/exec")) {
     statusBox.className = "status error";
     statusBox.textContent = "This form is not connected to Google Sheets yet. The event administrator must complete the Google Sheets setup before registrations can be stored.";
     return;
