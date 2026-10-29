@@ -50,38 +50,65 @@ GOOGLE SHEETS SETUP:
 After deploying Code.gs as a Google Apps Script Web App, paste its /exec URL below.
 Until you do this, the form will display a setup message and will not store submissions.
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzl-QKGqoHaefhdq61at6L2BZXkLRCUHkxLNcUIFXbdTN32Q6862jS8LongH6HXjRqm/exec"
-  const form = document.getElementById("registrationForm");
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzl-QKGqoHaefhdq61at6L2BZXkLRCUHkxLNcUIFXbdTN32Q6862jS8LongH6HXjRqm/exec";
+
+const form = document.getElementById("registrationForm");
 const button = document.getElementById("submitButton");
 const statusBox = document.getElementById("status");
+
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
+
   statusBox.className = "status";
   statusBox.textContent = "";
+
   if (document.getElementById("website").value) return;
-  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbzl-QKGqoHaefhdq61at6L2BZXkLRCUHkxLNcUIFXbdTN32Q6862jS8LongH6HXjRqm/exec")) {
+
+  if (
+    !GOOGLE_SCRIPT_URL ||
+    GOOGLE_SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")
+  ) {
     statusBox.className = "status error";
-    statusBox.textContent = "This form is not connected to Google Sheets yet. The event administrator must complete the Google Sheets setup before registrations can be stored.";
+    statusBox.textContent =
+      "Google Sheets is not configured. Please contact the event administrator.";
     return;
   }
+
   button.disabled = true;
   button.textContent = "Submitting…";
+
   try {
     const data = new URLSearchParams();
-    ["schoolName","schoolAddress","coordinatorName","designation","email","mobile"].forEach(function(id) {
+
+    ["schoolName", "schoolAddress", "coordinatorName",
+     "designation", "email", "mobile"].forEach(function(id) {
       data.append(id, document.getElementById(id).value.trim());
     });
-    await fetch(GOOGLE_SCRIPT_URL, {method:"POST", mode:"no-cors", body:data});
+
+    data.append("website", "");
+
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: data
+    });
+
     statusBox.className = "status success";
-    statusBox.textContent = "Your registration request has been sent. Please contact the event team if you need confirmation.";
+    statusBox.textContent =
+      "Your registration request has been sent. Please contact the event team if you need confirmation.";
+
     form.reset();
   } catch (err) {
     statusBox.className = "status error";
-    statusBox.textContent = "Could not send the registration. Please check your internet connection and try again.";
+    statusBox.textContent =
+      "Could not send the registration. Please check your internet connection and try again.";
   } finally {
     button.disabled = false;
     button.textContent = "Submit School Registration →";
   }
 });
+
+  
 </script>
 </body></html>
