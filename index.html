@@ -51,6 +51,7 @@ After deploying Code.gs as a Google Apps Script Web App, paste its /exec URL bel
 Until you do this, the form will display a setup message and will not store submissions.
 */
 
+
 const GOOGLE_SCRIPT_URL = "https://script.google.com/a/macros/naipunnyacollege.ac.in/s/AKfycby5vnP8rdXYcmVABb6Fdkl7lXhnxHRei7HiR_JBEpkBadRsPfe464bcS8h8XkV61l-D/exec";
 
 const form = document.getElementById("registrationForm");
@@ -67,7 +68,8 @@ form.addEventListener("submit", async function(event) {
 
   if (
     !GOOGLE_SCRIPT_URL ||
-    GOOGLE_SCRIPT_URL.includes("https://script.google.com/a/macros/naipunnyacollege.ac.in/s/AKfycby5vnP8rdXYcmVABb6Fdkl7lXhnxHRei7HiR_JBEpkBadRsPfe464bcS8h8XkV61l-D/exec")
+    GOOGLE_SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")
+  ) {
     statusBox.className = "status error";
     statusBox.textContent =
       "Google Sheets is not configured. Please contact the event administrator.";
@@ -80,8 +82,14 @@ form.addEventListener("submit", async function(event) {
   try {
     const data = new URLSearchParams();
 
-    ["schoolName", "schoolAddress", "coordinatorName",
-     "designation", "email", "mobile"].forEach(function(id) {
+    [
+      "schoolName",
+      "schoolAddress",
+      "coordinatorName",
+      "designation",
+      "email",
+      "mobile"
+    ].forEach(function(id) {
       data.append(id, document.getElementById(id).value.trim());
     });
 
@@ -95,19 +103,20 @@ form.addEventListener("submit", async function(event) {
 
     statusBox.className = "status success";
     statusBox.textContent =
-      "Your registration request has been sent. Please contact the event team if you need confirmation.";
+      "Your request has been sent. Please contact the event team if you need confirmation.";
 
     form.reset();
+
   } catch (err) {
     statusBox.className = "status error";
     statusBox.textContent =
-      "Could not send the registration. Please check your internet connection and try again.";
+      "Could not send the registration. Please check your connection and try again.";
+
   } finally {
     button.disabled = false;
     button.textContent = "Submit School Registration →";
   }
 });
-
   
 </script>
 </body></html>
