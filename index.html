@@ -50,8 +50,8 @@ GOOGLE SHEETS SETUP:
 After deploying Code.gs as a Google Apps Script Web App, paste its /exec URL below.
 Until you do this, the form will display a setup message and will not store submissions.
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPUeI2ShHqkKMDNE4saPjYYIl2LyzYkkmTuucfKnB0hRmhtgoD4bb0bHHfxAnNzcgy/exec"
-const form = document.getElementById("registrationForm");
+const GOOGLE_SCRIPT_URL = "https://script.google.com/a/macros/naipunnyacollege.ac.in/s/AKfycby5vnP8rdXYcmVABb6Fdkl7lXhnxHRei7HiR_JBEpkBadRsPfe464bcS8h8XkV61l-D/exec"
+  const form = document.getElementById("registrationForm");
 const button = document.getElementById("submitButton");
 const statusBox = document.getElementById("status");
 form.addEventListener("submit", async function(event) {
@@ -59,7 +59,7 @@ form.addEventListener("submit", async function(event) {
   statusBox.className = "status";
   statusBox.textContent = "";
   if (document.getElementById("website").value) return;
-  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbyPUeI2ShHqkKMDNE4saPjYYIl2LyzYkkmTuucfKnB0hRmhtgoD4bb0bHHfxAnNzcgy/exec")) {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("https://script.google.com/a/macros/naipunnyacollege.ac.in/s/AKfycby5vnP8rdXYcmVABb6Fdkl7lXhnxHRei7HiR_JBEpkBadRsPfe464bcS8h8XkV61l-D/exec")) {
     statusBox.className = "status error";
     statusBox.textContent = "This form is not connected to Google Sheets yet. The event administrator must complete the Google Sheets setup before registrations can be stored.";
     return;
