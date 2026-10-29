@@ -66,15 +66,12 @@ form.addEventListener("submit", async function(event) {
 
   if (document.getElementById("website").value) return;
 
-  if (
-    !GOOGLE_SCRIPT_URL ||
-    GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbzl-QKGqoHaefhdq61at6L2BZXkLRCUHkxLNcUIFXbdTN32Q6862jS8LongH6HXjRqm/exec")
-  ) {
-    statusBox.className = "status error";
-    statusBox.textContent =
-      "Google Sheets is not configured. Please contact the event administrator.";
-    return;
-  }
+  if (!GOOGLE_SCRIPT_URL) {
+  statusBox.className = "status error";
+  statusBox.textContent =
+    "Google Sheets is not configured. Please contact the event administrator.";
+  return;
+}
 
   button.disabled = true;
   button.textContent = "Submitting…";
