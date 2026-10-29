@@ -59,7 +59,7 @@ form.addEventListener("submit", async function(event) {
   statusBox.className = "status";
   statusBox.textContent = "";
   if (document.getElementById("website").value) return;
-  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbxu-S5DaUKNsitjreT5guAPY349faEsfGVy9GLVHNk2CGm-hhawkxDytzE3jZryVIFr/exec")) {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbxrtELO0IrmfC8Mgq8_2Vi6j9BG3WtgWX6A2_bPrj5xv65eBJj85bnPUPpuCm8_TCU/exec")) {
     statusBox.className = "status error";
     statusBox.textContent = "This form is not connected to Google Sheets yet. The event administrator must complete the Google Sheets setup before registrations can be stored.";
     return;
