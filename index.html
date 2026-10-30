@@ -82,21 +82,17 @@ form.addEventListener("submit", async function (event) {
 
   try {
     const data = new URLSearchParams();
-
-    [
-      "schoolName",
-      "schoolAddress",
-      "coordinatorName",
-      "designation",
-      "email",
-      "mobile"
-    ].forEach(function (id) {
-      data.append(
-        id,
-        document.getElementById(id).value.trim()
-      );
-    });
-
+[
+  "schoolName",
+  "schoolAddress",
+  "coordinatorName",
+  "designation",
+  "email",
+  "mobile"
+].forEach(function(id) {
+  data.append(id, document.getElementById(id).value.trim());
+});
+   
     data.append("website", "");
 
     // Send the form to Google Apps Script.
