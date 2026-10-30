@@ -89,6 +89,7 @@ form.addEventListener("submit", async function(event) {
       "email",
       "mobile"
     ].forEach(function(id) {
+      message:"near append";
       data.append(id, document.getElementById(id).value.trim());
     });
 
