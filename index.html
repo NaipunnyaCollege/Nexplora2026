@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <form id="registrationForm">
+  
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,26 +54,28 @@ Until you do this, the form will display a setup message and will not store subm
 */
 
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxloVb_BrBwkH58FTzyqoEFXNcKLFe6RhT2nE7bbtcoqE_Fpj0YBVd8XMctOoz-ZnE0Qg/exec"
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxloVb_BrBwkH58FTzyqoEFXNcKLFe6RhT2nE7bbtcoqE_Fpj0YBVd8XMctOoz-ZnE0Qg/exec";
 
 const form = document.getElementById("registrationForm");
 const button = document.getElementById("submitButton");
 const statusBox = document.getElementById("status");
 
-form.addEventListener("submit", async function(event) {
+form.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   statusBox.className = "status";
   statusBox.textContent = "";
 
+  // Honeypot spam protection
   if (document.getElementById("website").value) return;
 
   if (!GOOGLE_SCRIPT_URL) {
-  statusBox.className = "status error";
-  statusBox.textContent =
-    "Google Sheets is not configured. Please contact the event administrator.";
-  return;
-}
+    statusBox.className = "status error";
+    statusBox.textContent =
+      "Registration is temporarily unavailable. Please contact the event administrator.";
+    return;
+  }
 
   button.disabled = true;
   button.textContent = "Submitting…";
@@ -88,34 +90,39 @@ form.addEventListener("submit", async function(event) {
       "designation",
       "email",
       "mobile"
-    ].forEach(function(id) {
-      message:"near append";
-      data.append(id, document.getElementById(id).value.trim());
+    ].forEach(function (id) {
+      data.append(
+        id,
+        document.getElementById(id).value.trim()
+      );
     });
 
     data.append("website", "");
 
+    // Send the form to Google Apps Script.
+    // This request alone cannot verify that the row was saved.
     await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
-            body: data
+      body: data,
+      mode: "no-cors"
     });
 
     statusBox.className = "status success";
     statusBox.textContent =
-      "Your request has been sent. Please contact the event team if you need confirmation.";
+      "Your registration request has been sent. Please contact the event team to confirm registration.";
 
     form.reset();
 
-  } catch (err) {
+  } catch (error) {
     statusBox.className = "status error";
     statusBox.textContent =
-      "Could not send the registration. Please check your connection and try again.";
+      "Could not send the registration. Please check your internet connection and try again.";
 
   } finally {
     button.disabled = false;
     button.textContent = "Submit School Registration →";
   }
 });
-  
 </script>
+
 </body></html>
